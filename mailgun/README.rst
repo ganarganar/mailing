@@ -8,7 +8,7 @@ Mailgun
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://raster.shields.io/badge/github-ganarganar%mailing-lightgray.png?logo=github
+.. |badge3| image:: https://raster.shields.io/badge/github-ganarganar%2Fmailing-lightgray.png?logo=github
     :target: https://github.com/ganarganar/mailing/tree/13.0/mailgun
     :alt: ganarganar/mailing
 
@@ -26,24 +26,24 @@ That is why we need this module. It fetches messages from Mailgun using their AP
 Configuration
 =============
 
-Mailgun-side
-------------
+Mailgun
+~~~~~~~
 
-* register or log in http://mailgun.com
+* Register or log in http://mailgun.com
 * Open menu ``Domains`` and click on your domain, e.g. ``sandbox123*****.mailgun.org`` domain. Here you can see all the information needed to configure odoo outgoing mail feature
 * Please note that state of your domain should be ``Active`` before you can use it. If it is ``Unverified``, verify it first using Mailgun FAQ - `How do I verify my domain <https://help.mailgun.com/hc/en-us/articles/202052074-How-do-I-verify-my-domain->`__
-* if you are using your sandbox domain, add Authorized Recipient first (Sandbox domains are restricted to `authorized recipients <https://help.mailgun.com/hc/en-us/articles/217531258>`__ only)
-* create new Route
+* If you are using your sandbox domain, add Authorized Recipient first (Sandbox domains are restricted to `authorized recipients <https://help.mailgun.com/hc/en-us/articles/217531258>`__ only)
+* Create new Route.
 
   * Open menu ``Routes``
-  * Click ``[Create Route]`` button
+  * Click ``Create Route`` button
 
     * **Expression Type** - ``Custom``
     * **Raw Expression** - ``match_recipient('.*@<your mail domain>')``
     * **Actions** - ``Store and notify``, ``http://<your odoo domain>/mailgun/notify``
 
-Odoo-side
----------
+Odoo
+~~~~
 
 * `Activate Developer Mode <https://odoo-development.readthedocs.io/en/latest/odoo/usage/debug-mode.html>`__
 * Configure **Outgoung mail server**
@@ -56,28 +56,28 @@ Odoo-side
     * **Connection Security** - ``SSL/TLS``
     * **Username** - take from Mailgun **Default SMTP Login**
     * **Password** - take from Mailgun **Default Password**
-    * Click ``[Test Connection]`` button to check the connection and then ``[Save]``
+    * Click ``Test Connection`` button to check the connection and then ``Save``
 
 * Configure **Incoming mail feature**
 
   * Configure catchall domain
 
     * Open menu ``Settings / General Settings``, check **External Email Servers** and edit **Alias Domain** - set it from Mailgun **Domain Name**
-    * Click ``[Save]`` button
+    * Click ``Save`` button
 
   * Set Mailgun API credentials
 
     * Open menu ``Settings >> Parameters >> System Parameters``
     * Create new parameter
 
-      * key: ``mailgun.apikey``
+      * Key: ``mailgun.apikey``
       * Value: API Key from mailgun (``key-...``)
-      * Click ``[Save]`` button
+      * Click ``Save`` button
 
   * Configure mail aliases and emails for users
 
     * Open menu ``Settings >> Users >> Users``
-    * Select the ``Administrator`` user (for example, you should configure all your users the same way but using different aliases) and click ``[Edit]``
+    * Select the ``Administrator`` user (for example, you should configure all your users the same way but using different aliases) and click ``Edit``
     * On Preference tab edit **Alias** field - create new mail alias, e.g. ``admin@<you mail domain>`` with the following settings
 
       * **Alias Name** - ``admin``
@@ -94,12 +94,24 @@ Odoo-side
 Usage
 =====
 
-All changes will be applied automatically.
+Outgoing
+~~~~~~~~
+
+* Open menu ``Settings >> Email >> Emails`` to create a message
+* Click ``Send Now`` button
+* RESULT: receive the message in your mail client (e.g. on gmail.com)
+
+Incoming
+~~~~~~~~
+
+* Create new message from your mail client to e.g. ``admin@<you mailgun domain>``
+* Open menu ``Discuss`` in Odoo
+* RESULT: See your message there
 
 Known issues / Roadmap
 ======================
 
-#. If emails are sent when Odoo is stopped then Mailgun will retry (other than for delivery notification) during 8 hours at the following intervals before stop trying: 10 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 2 hour and 4 hours. This could be fixed by fetching undelivered messages after Odoo starts.
+* If emails are sent when Odoo is stopped then Mailgun will retry (other than for delivery notification) during 8 hours at the following intervals before stop trying: 10 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 2 hour and 4 hours. This could be fixed by fetching undelivered messages after Odoo starts.
 
 Bug Tracker
 ===========
@@ -152,39 +164,3 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 This module is part of the `ganarganar/mailing <https://github.com/ganarganar/mailing/tree/13.0/mailing>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
-
-
-
-
-
-
-
-
-
-
-
-
-
-TODO
-====
-
-* 
-
-Questions?
-==========
-
-To get an assistance on this module contact us by email :arrow_right: help@itpp.dev
-
-Contributors
-============
-* Ildar Nasyrov <Nasyrov@it-projects.info>
-* Ivan Yelizariev <yelizariev@it-projects.info>
-
-===================
-
-Odoo Apps Store: https://apps.odoo.com/apps/modules/11.0/mailgun/
-
-
-Notifications on updates: `via Atom <https://github.com/it-projects-llc/mail-addons/commits/11.0/mailgun.atom>`_, `by Email <https://blogtrottr.com/?subscribe=https://github.com/it-projects-llc/mail-addons/commits/11.0/malgun.atom>`_
-
-Tested on `Odoo 11.0 <https://github.com/odoo/odoo/commit/dc61861f90d15797b19f8ebddfb0c8a66d0afa88>`_
